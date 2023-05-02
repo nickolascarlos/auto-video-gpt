@@ -21,21 +21,26 @@ def get_arguments():
     size_group = parser.add_mutually_exclusive_group(required=True)
 
     size_group.add_argument('-j', '--height',
-                            help='Video height')
+                            help='Video height',
+                            type=int)
     
     size_group.add_argument('-w', '--width',
-                            help='Video width')
+                            help='Video width',
+                            type=int)
     
     parser.add_argument('-a', '--aspect-ratio',
                         help='Video aspect ratio',
+                        type=float,
                         default=9/16)
     
     parser.add_argument('-f', '--fps',
                         help='Video FPS',
+                        type=int,
                         default=25)
     
     parser.add_argument('-o', '--output',
-                        help='Video save location')
+                        help='Video save location',
+                        type=str)
     
 
     return vars(parser.parse_args(sys.argv[1:]))
