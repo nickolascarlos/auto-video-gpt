@@ -25,8 +25,8 @@ class SixFactsVideoCoordinator:
             
             image = image.set_duration(9.8)\
                         .set_start(i*9.8)\
-                        .set_pos(("center", "center"))
-                        #.resize(lambda t: 1+(t/9.8)/6)\
+                        .set_pos(("center", "center"))\
+                        .resize(lambda t: 1+(t/9.8)/6)\
             
             background = CompositeVideoClip([background, image])
         
