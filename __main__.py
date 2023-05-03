@@ -8,6 +8,6 @@ from video_creation import create_video
 
 if __name__ == '__main__':
     arguments = get_arguments()
-    content_factory = GPTContentFactory(arguments['api_key'])
+    content_factory = GPTContentFactory(arguments['api_key']) if not arguments['stdin'] else None
     video_coordinator_class = get_coordinator_class_by_name(arguments['coordinator'])
     create_video(video_coordinator_class, arguments, content_factory)

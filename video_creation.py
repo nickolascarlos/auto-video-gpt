@@ -3,9 +3,9 @@ from VideoMaker import *
 def create_video(coordinator_class, arguments, content_factory):
     video_coordinator = coordinator_class(
         arguments['subject'],
-        content_factory.getContent(arguments['subject'], coordinator_class.standardGPTPrompt),
-        'Merriweather-Bold',
-        'Merriweather-Regular')
+        content_factory.getContent(arguments['subject'], coordinator_class.standardGPTPrompt) if content_factory is not None else input(''),
+        'Georgia-Bold',
+        'Georgia')
 
     video_maker = VideoMaker(
         video_coordinator,

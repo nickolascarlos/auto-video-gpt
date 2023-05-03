@@ -41,6 +41,10 @@ def get_arguments():
     parser.add_argument('-o', '--output',
                         help='Video save location',
                         type=str)
+
+    parser.add_argument('-x', '--stdin',
+                        help='Use stdin as video content',
+                        type=bool)
     
 
     return vars(parser.parse_args(sys.argv[1:]))
