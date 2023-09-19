@@ -21,38 +21,6 @@ class GPTContentFactory:
     # TODO: Implement a schema validator
     #
     def getContent(self, subject, gpt_prompt):
-        return """[
-{
-"title": "Colonization of Brazil",
-"content": "Portuguese explorers arrived in Brazil in 1500, establishing a colony that lasted until 1822.",
-"image": "Portuguese ships landing on Brazilian coast."
-},
-{
-"title": "Slavery in Brazil",
-"content": "Brazil was the largest importer of enslaved Africans, with over 4 million brought to the country from the 16th to 19th centuries.",
-"image": "African slaves being sold in a Brazilian market."
-},
-{
-"title": "Independence from Portugal",
-"content": "In 1822, Brazil declared independence from Portugal and became a constitutional monarchy.",
-"image": "Brazilian independence declaration ceremony."
-},
-{
-"title": "Coffee Boom",
-"content": "The late 19th century saw Brazil become the world's largest coffee producer, fueling economic growth and modernization.",
-"image": "Coffee plantations in Brazil's countryside."
-},
-{
-"title": "Military Rule",
-"content": "From 1964 to 1985, Brazil was ruled by a military dictatorship that suppressed political opposition and civil liberties.",
-"image": "Military personnel and tanks patrolling Brazilian streets."
-},
-{
-"title": "Recent Developments",
-"content": "Since the return to democracy in 1985, Brazil has become a major player on the global stage, but continues to struggle with economic inequality and political corruption.",
-"image": "A panoramic view of Rio de Janeiro's skyline."
-}
-]"""
         prompt = gpt_prompt.replace('{{SUBJECT}}', subject)
 
         response = openai.Completion.create(
