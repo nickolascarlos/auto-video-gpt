@@ -2,6 +2,8 @@ from moviepy.editor import ColorClip, ImageClip, CompositeVideoClip, TextClip
 from icrawler.builtin import GoogleImageCrawler
 import json, random, os
 
+from effects import zoom_in_effect
+
 # Coordinator for Youtube Shorts compatible
 # videos that consist of six "slides" with
 # white text and a zooming background image
@@ -36,10 +38,10 @@ class SixFactsVideoCoordinator:
             image = SixFactsVideoCoordinator.getRelatedImage(f['image']) # Returns an ImageClip
             image = image.resize(width=video_maker.width) if image.h > image.w else image.resize(height=video_maker.height)
             
-            image = image.set_duration(9.8)\
+            image = zoom_in_effect(image.set_duration(9.8)\
                         .set_start(i*9.8)\
-                        .set_pos(("center", "center"))\
-                        .resize(lambda t: 1+(t/9.8)/6)\
+                        .set_pos(("center", "center")))
+                        #.resize(lambda t: 1+(t/9.8)/6)\
             
             background = CompositeVideoClip([background, image])
         
