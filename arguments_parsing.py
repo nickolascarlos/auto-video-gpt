@@ -11,10 +11,10 @@ def get_arguments():
     
     parser.add_argument('-k', '--api-key',
                         help='OpenAI API key',
-                        required=True, type=str)
+                        type=str)
     
     parser.add_argument('-c', '--coordinator',
-                        help='Coordinator for the video. It is what defines the "model" of your video. Currently only SixFacts is available.',
+                        help='Coordinator for the video. It is what defines the "template" of your video. Currently only SixFacts is available.',
                         required=True, type=str,
                         choices=['SixFacts'])
     
@@ -45,6 +45,17 @@ def get_arguments():
     parser.add_argument('-x', '--stdin',
                         help='Use stdin as video content',
                         type=bool)
+    
+    parser.add_argument('-t', '--factory',
+                        help='Factory to generate the video content',
+                        type=str,
+                        choices=['OpenAI', 'G4F'])
+
+    parser.add_argument('-m', '--model', 
+                        help='Model to be used by G4F (required if selected factory is G4F)',
+                        type=str,
+                        choices=['gpt-3.5-turbo'],
+                        default='gpt-3.5-turbo')
     
 
     return vars(parser.parse_args(sys.argv[1:]))

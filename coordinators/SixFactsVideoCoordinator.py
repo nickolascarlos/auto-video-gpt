@@ -5,10 +5,23 @@ import json, random, os
 # Coordinator for Youtube Shorts compatible
 # videos that consist of six "slides" with
 # white text and a zooming background image
-
 class SixFactsVideoCoordinator:
     
-    standardGPTPrompt = "Propose 6 detailed slides on \"{{SUBJECT}}\", with exactly one very informative sentence (do not include quotes in the sentence\", in JSON array format, in such a way that the title (maximum 5 words) of the slide occupy the name key \"title\" and the content occupy the name key \"content\". Also include in the JSON object, in the \"image\" key, a very simple and well-contextualized image description consistent with the content of each of the slides. Write only just the JSON object, don't write anything other than the JSON code!"
+    standardGPTPrompt = """Generate a JSON array containing 6 detailed slides on "{{SUBJECT}}". 
+
+                        Each slide should have a title (up to 5 words) in the 'title' key and a descriptive sentence (without quotes) in the 'content' key.
+
+                        Additionally, include a concise, contextually relevant image description in the 'image' key for each slide.
+
+                        Important!!! Provide only the raw/pure JSON object as plain text, in such a way that it's possible to parse it directly from your response, so don't include any additional text or marks other than the JSON object.
+
+                        Your answer must be a valid JSON object, such that I can parse it without any errors. So, no explanation and no comments, just and only the JSON object. Like this:
+
+                        [ {
+                            "title": "...",
+                            "content": "...",
+                            "image": "..."
+                        }, ... ]"""
     
     def __init__(self, theme, content, title_font, content_font):
         self.theme = theme
