@@ -6,5 +6,5 @@ class StdInputContentFactory:
     def __init__(self, arguments):
         pass
 
-    def getContent(self, subject, gpt_prompt):
+    def get_content(self, subject, gpt_prompt):
         return input()

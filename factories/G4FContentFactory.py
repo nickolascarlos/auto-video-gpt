@@ -22,7 +22,7 @@ class G4FContentFactory:
     # TODO: Implement a schema validator
     #
     # TODO: Uncouple prompt generation from content factories
-    def getContent(self, subject, gpt_prompt):
+    def get_content(self, subject, gpt_prompt):
         prompt = gpt_prompt.replace('{{SUBJECT}}', subject)
 
         response = g4f.ChatCompletion.create(

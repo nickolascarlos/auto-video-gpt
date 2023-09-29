@@ -22,7 +22,7 @@ class OpenAIContentFactory:
     #
     # TODO: Implement a schema validator
     #
-    def getContent(self, subject, gpt_prompt):
+    def get_content(self, subject, gpt_prompt):
         prompt = gpt_prompt.replace('{{SUBJECT}}', subject)
 
         response = openai.Completion.create(

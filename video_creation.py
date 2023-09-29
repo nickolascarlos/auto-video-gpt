@@ -5,7 +5,7 @@ def create_video(coordinator_class, content_factory_class, arguments):
     
     video_coordinator = coordinator_class(
         arguments['subject'],
-        content_factory.getContent(arguments['subject'], coordinator_class.standardGPTPrompt),
+        content_factory.get_content(arguments['subject'], coordinator_class.standardGPTPrompt),
         'Georgia-Bold',
         'Georgia')
 

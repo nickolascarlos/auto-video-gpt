@@ -31,11 +31,11 @@ class SixFactsVideoCoordinator:
         self.title_font = title_font
         self.content_font = content_font
 
-    def backgroundMaker(self, video_maker):
+    def make_background(self, video_maker):
         background = ColorClip((video_maker.width, video_maker.height), (0,0,0)).set_duration(59)
         
         for i, f in enumerate(self.content):
-            image = SixFactsVideoCoordinator.getRelatedImage(f['image']) # Returns an ImageClip
+            image = SixFactsVideoCoordinator.get_related_image(f['image']) # Returns an ImageClip
             image = image.resize(width=video_maker.width) if image.h > image.w else image.resize(height=video_maker.height)
             
             image = zoom_in_effect(image.set_duration(9.8)\
@@ -53,7 +53,7 @@ class SixFactsVideoCoordinator:
                         ])
         return [background]
     
-    def contentMaker(self, video_maker):
+    def make_content(self, video_maker):
         slides = []
         for i, element in enumerate(self.content):
             title = TextClip(element['title'], 
@@ -91,13 +91,12 @@ class SixFactsVideoCoordinator:
 
         return slides
 
-    def watermarkMaker(self, video_maker):
+    def make_watermark(self, video_maker):
       return []
-    
     
     @staticmethod
     # Returns a random image, from Google Image, related to the query
-    def getRelatedImage(query, temp_image_dir = './image_dir_temp/'):
+    def get_related_image(query, temp_image_dir = './image_dir_temp/'):
         
         if not temp_image_dir.endswith('/'):
             temp_image_dir += '/'
