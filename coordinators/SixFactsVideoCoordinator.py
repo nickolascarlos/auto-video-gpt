@@ -3,6 +3,7 @@ from icrawler.builtin import GoogleImageCrawler
 import json, random, os
 
 from effects import zoom_in_effect
+from media_generators.GoogleImagesFetcher import GoogleImagesFetcher
 
 # Coordinator for Youtube Shorts compatible
 # videos that consist of six "slides" with
@@ -25,23 +26,23 @@ class SixFactsVideoCoordinator:
                             "image": "..."
                         }, ... ]"""
     
-    def __init__(self, theme, content, title_font, content_font):
+    def __init__(self, theme, content, title_font, content_font, image_generator = GoogleImagesFetcher()):
         self.theme = theme
         self.content = json.loads(content)
         self.title_font = title_font
         self.content_font = content_font
+        self.image_generator = image_generator
 
     def make_background(self, video_maker):
         background = ColorClip((video_maker.width, video_maker.height), (0,0,0)).set_duration(59)
         
         for i, f in enumerate(self.content):
-            image = SixFactsVideoCoordinator.get_related_image(f['image']) # Returns an ImageClip
+            image = self.image_generator.generate(f['image'])
             image = image.resize(width=video_maker.width) if image.h > image.w else image.resize(height=video_maker.height)
             
             image = zoom_in_effect(image.set_duration(9.8)\
                         .set_start(i*9.8)\
                         .set_pos(("center", "center")))
-                        #.resize(lambda t: 1+(t/9.8)/6)\
             
             background = CompositeVideoClip([background, image])
         
@@ -93,23 +94,3 @@ class SixFactsVideoCoordinator:
 
     def make_watermark(self, video_maker):
       return []
-    
-    @staticmethod
-    # Returns a random image, from Google Image, related to the query
-    def get_related_image(query, temp_image_dir = './image_dir_temp/'):
-        
-        if not temp_image_dir.endswith('/'):
-            temp_image_dir += '/'
-
-        google_crawler = GoogleImageCrawler(parser_threads=4,
-                                            downloader_threads=4,
-                                            storage={'root_dir': temp_image_dir})
-        
-        google_crawler.crawl(keyword=query, offset=0, max_num=1,
-                            min_size=(400, 400), max_size=None)
-        
-        chosen_image = random.choice([temp_image_dir + image_file for image_file in os.listdir(temp_image_dir)])
-        image_clip = ImageClip(chosen_image)
-        os.remove(chosen_image)
-
-        return image_clip
